@@ -52,22 +52,17 @@ jobs:
               gcloud auth configure-docker --quiet
               gcloud auth configure-docker europe-west3-docker.pkg.dev --quiet
 	      ```bash
-	      docker build -t europe-west3-docker.pkg.dev/project-ef801521-090f-4fa8-9b5/cicd-workshop/{FLUTTER_APP_NAME}:{VERSION} .
-	      docker push europe-west3-docker.pkg.dev/project-ef801521-090f-4fa8-9b5/cicd-workshop/{FLUTTER_APP_NAME}:{VERSION}
+	      docker build -t europe-west3-docker.pkg.dev/project-ef801521-090f-4fa8-9b5/cicd-workshop/flutter-app-mariosousa:v1.0.1 .
+	      docker push europe-west3-docker.pkg.dev/project-ef801521-090f-4fa8-9b5/cicd-workshop/flutter-app-mariosousa:v1.0.1
 	      ```
-          - `FLUTTER_APP_NAME`: use `flutter-app-<your-cicd-id>`
-	  - `VERSION`: start with `v1.0.0`
 
           # TODO: deploy your Docker image to Cloud Run
           - name: Deploy to Cloud Run ⚙️
             run: |
               echo "Deploy to Cloud Run"
 	      ```bash
-	      gcloud run deploy {GOOGLE_CLOUD_RUN_SERVICE} \
-	        --image {IMAGE_TAG} \
+	      gcloud run deploy mariosousa \
+	        --image europe-west3-docker.pkg.dev/project-ef801521-090f-4fa8-9b5/cicd-workshop/flutter-app-mariosousa:v1.0.1 \
 		--region europe-west3 \
 		--allow-unauthenticated
 		```
-
-          - `GOOGLE_CLOUD_RUN_SERVICE`: your `cicd-id`
-	  - `IMAGE_TAG`: the full image tag you used in step 1
